@@ -1,1 +1,1 @@
-web: gunicorn trendsApi.wsgi
+web: gunicorn memories.wsgi
