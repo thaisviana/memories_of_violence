@@ -1,3 +1,5 @@
-from django.contrib import admin
+from .models import Occurrence, Location, Asset
 
-# Register your models here.
+Occurrence.register_admin()
+Location.register_admin()
+Asset.register_admin()

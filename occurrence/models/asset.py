@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.admin import ModelAdmin, site
 
 
 class Asset(models.Model):
@@ -14,5 +15,16 @@ class Asset(models.Model):
     def __str__(self):
         return self.get_type_display(), self.url
 
+    @classmethod
+    def register_admin(cls):
+        site.register(cls, Admin)
+
     class Meta:
         abstract = False
+        verbose_name = 'Material'
+        verbose_name_plural = 'Materiais'
+
+
+class Admin(ModelAdmin):
+    icon = '<i class="material-icons">bookmark</i>'
+    list_display = ('type', 'url',)
