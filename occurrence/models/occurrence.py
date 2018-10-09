@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.admin import ModelAdmin, site
+from django.contrib.admin import ModelAdmin, site, TabularInline
 
 
 class Occurrence(models.Model):
@@ -26,6 +26,14 @@ class Occurrence(models.Model):
         verbose_name_plural = 'Ocorrências'
 
 
+class AssetInlineAdmin(TabularInline):
+    from .asset import Asset
+    model = Asset
+    extra = 0
+
+
 class Admin(ModelAdmin):
     icon = '<i class="material-icons">bookmark</i>'
     list_display = ('id', 'description', 'category', 'location')
+    inlines = (AssetInlineAdmin,)
+

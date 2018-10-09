@@ -11,9 +11,10 @@ class Asset(models.Model):
     type = models.CharField(max_length=2, choices=TYPE_CHOICES, default=IMAGE,)
     hashId = models.CharField(max_length=255)
     url = models.CharField(max_length=255)
+    occurrence = models.ForeignKey('occurrence.Occurrence', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return self.get_type_display(), self.url
+        return "{} , {}".format(self.get_type_display(), self.url)
 
     @classmethod
     def register_admin(cls):

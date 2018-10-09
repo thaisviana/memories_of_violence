@@ -4,10 +4,31 @@ from rest_framework.permissions import AllowAny
 from django_filters import rest_framework
 
 
+class AssetSerializer(serializers.ModelSerializer):
+    class Meta:
+        from ..models import Asset
+        model = Asset
+        fields = '__all__'
+
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        from ..models import Location
+        model = Location
+        fields = '__all__'
+
+
 class OccurrenceSerializer(serializers.ModelSerializer):
+    location = LocationSerializer()
+    approximatedRangeDate = serializers.SerializerMethodField()
+    asset_set = AssetSerializer(many=True)
+
     class Meta:
         model = Occurrence
-        fields = '__all__'
+        exclude = ('startDate', 'finishDate',)
+
+    def get_approximatedRangeDate(self, obj):
+        return {'startDate': obj.startDate, 'finishDate': obj.finishDate}
 
 
 class OccurrenceViewSet(viewsets.ModelViewSet):
