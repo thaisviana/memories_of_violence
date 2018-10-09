@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from hybridrouter import HybridRouter
 from occurrence.api import router
-from django.conf.urls import url, include
+from django.conf import settings
+from django.conf.urls import url, include, static
 
 root_router = HybridRouter()
 
@@ -28,3 +29,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
 ]
+
+urlpatterns += static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
