@@ -26,4 +26,5 @@ root_router.register_router(router)
 urlpatterns = [
     url(r'^v1/', include((root_router.urls, 'occurrence'), namespace='v1')),
     path('admin/', admin.site.urls),
+
 ]
