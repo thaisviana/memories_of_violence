@@ -5,13 +5,17 @@ from django.contrib.admin import ModelAdmin, site, TabularInline
 class Occurrence(models.Model):
     description = models.TextField(null=False, blank=False, verbose_name='Descrição')
     category = models.CharField(max_length=255, verbose_name='Categoria')
-    preciseDate = models.DateField(null=True, blank=True , verbose_name='Data precisa')
+    preciseDate = models.DateField(null=True, blank=True, verbose_name='Data precisa')
     startDate = models.DateField(null=True, blank=True , verbose_name='Data de início',
                                  help_text='Esta informação só deve ser inserida caso não haja uma data precisa')
     finishDate = models.DateField(null=True, blank=True , verbose_name='Data de fim',
                                   help_text='Esta informação só deve ser inserida caso não haja uma data precisa')
     location = models.ForeignKey('occurrence.Location', verbose_name="Localização", null=True, blank=True,
                                  on_delete=models.CASCADE)
+
+    report = models.URLField(verbose_name="URL da reportagem", null=True, blank=True)
+    manifestations = models.URLField(verbose_name="URL de Atos e Manifestações", null=True, blank=True)
+    stories = models.URLField(verbose_name="URL de Fichas narrativas", null=True, blank=True)
 
     def __str__(self):
         return self.description
